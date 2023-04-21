@@ -32,7 +32,7 @@ public class OpenWeatherApiClient {
             while ((line = reader.readLine()) != null) {
                 responseBuilder.add(line);
             }
-            return responseBuilder.get(0);
+                   return responseBuilder.get(0);
 
         } catch (IOException e) {
             throw new RuntimeException("Error: " + e.getMessage());
