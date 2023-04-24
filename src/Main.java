@@ -1,15 +1,11 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println(OpenWeatherApiClient.getWeatherData(40.5358, 20.203));
+        System.out.println(OpenWeather.getWeatherData(40.5358, 20.203));
         int fileCounter = 0;
         Multimedia[] multimediaArray;
         Multimedia[] myFiles = new Multimedia[MyUtils.FileFinder("/home/clopez543/Downloads").size()];
@@ -24,30 +20,13 @@ public class Main {
                 String line;
 //                System.out.println("File #: " + fileCounter + "\n");
                 while ((line = reader.readLine()) != null) {
-                    List<Pattern> pattern = new ArrayList<>();
-                    pattern.add(Pattern.compile("GPS Latitude", Pattern.CASE_INSENSITIVE));
-                    pattern.add(Pattern.compile("GPS Longitude", Pattern.CASE_INSENSITIVE));
-                    pattern.add(Pattern.compile("Create Date", Pattern.CASE_INSENSITIVE));
-
-                    Matcher matcher;
-                    matcher = pattern.get(0).matcher(line);
-                    if (matcher.find()) {
-                        myFiles[fileCounter].location[0] = MyUtils.GPSParser(line);
+                    MyUtils.MetaHandler(myFiles[fileCounter],line);
+                    if (myFiles[fileCounter].location[0] != null && myFiles[fileCounter].location[1] != null){
+                        myFiles[fileCounter].setWeather(OpenWeather.GetDescription(OpenWeather.getWeatherData(Double.parseDouble(myFiles[fileCounter].location[0]), Double.parseDouble(myFiles[fileCounter].location[1]))));
                     }
-
-                    matcher = pattern.get(1).matcher(line);
-                    if (matcher.find()) {
-                        myFiles[fileCounter].location[1] = MyUtils.GPSParser(line);
-                    }
-
-                    matcher = pattern.get(2).matcher(line);
-                    if (matcher.find()) {
-                    }
-//                    OpenWeatherApiClient.getWeatherData(MyUtils.GPSParser(line), MyUtils.G);
-
                 }
-
-
+                MyUtils.FileTypeDetector(myFiles[fileCounter]);
+                myFiles[fileCounter].getAllData();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

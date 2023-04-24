@@ -3,8 +3,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class OpenWeatherApiClient {
+public class OpenWeather {
 
     private static final String apiKey = "3233ac91292b4c006204060a119a223d";
     private static final String endpointURL = "http://api.openweathermap.org/data/2.5/weather";
@@ -37,5 +39,14 @@ public class OpenWeatherApiClient {
         } catch (IOException e) {
             throw new RuntimeException("Error: " + e.getMessage());
         }
+    }
+    public static String GetDescription(String json) {
+        String pattern = "\"description\":\"([^\"]+)\"";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(json);
+        if (m.find()) {
+            return m.group(1);
+        }
+        return null;
     }
 }

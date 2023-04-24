@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Multimedia {
     String path;
     Long date;
@@ -48,5 +50,10 @@ public class Multimedia {
     public void setImage(Boolean image) {
         isImage = image;
     }
+    public void getAllData(){
+        System.out.printf("Date: %s\nPath: %s\nIs Image: %s\nLocation: %s\nWeather: %s\n\n",
+                date, path, isImage, Arrays.toString(location), weather);
+    }
 
 }
+
