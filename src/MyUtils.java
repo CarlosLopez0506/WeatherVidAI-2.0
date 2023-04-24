@@ -12,10 +12,8 @@ public class MyUtils {
         try {
             // create process builder for find command
 //            ProcessBuilder processBuilder = new ProcessBuilder("/bin/bash", "-c", "find " + folderPath + " \\( -name '*.heif' -o -name '*.jpg' -o -name '*.JPG' -o -name '*.mp4' \\)");
-            ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", "find " + folderPath + " \\( -name '*.heic' -o -name '*.jpg' -o -name '*.png' -o -name '*.mp4' -o -name '*.mov' \\)");
-            if (System.getProperty("os.name").toLowerCase().contains("win")) {
-                processBuilder = new ProcessBuilder("cmd.exe", "/c", "dir /b " + folderPath + "\\*.heic " + folderPath + "\\*.jpg " + folderPath + "\\*.png " + folderPath + "\\*.mp4 " + folderPath + "\\*.mov");
-            }
+            ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", "find " + folderPath + " \\( -name '*.heif' -o -name '*.jpg' -o -name '*.JPG' -o -name '*.png' -o -name '*.mp4' -o -name '*.mov' \\)");
+
 
             // start process and read output
             Process process = processBuilder.start();

@@ -51,7 +51,7 @@ public class Multimedia {
         isImage = image;
     }
     public void getAllData(){
-        System.out.printf("Date: %s\nPath: %s\nIs Image: %s\nLocation: %s\nWeather: %s\n\n",
+        System.out.printf("\nDate: %s\nPath: %s\nIs Image: %s\nLocation: %s\nWeather: %s\n",
                 date, path, isImage, Arrays.toString(location), weather);
     }
 

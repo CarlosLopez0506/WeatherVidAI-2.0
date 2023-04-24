@@ -22,7 +22,9 @@ public class FileGetter {
                     }
                 }
                 MyUtils.FileTypeDetector(myFiles[fileCounter]);
-                myFiles[fileCounter].getAllData();
+                if(myFiles[fileCounter].getDate() == null){
+                    myFiles[fileCounter].setDate(0L);
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
