@@ -1,17 +1,20 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class OpenWeather {
+public class MyApi {
 
-    private static final String apiKey = "3233ac91292b4c006204060a119a223d";
-    private static final String endpointURL = "http://api.openweathermap.org/data/2.5/weather";
+
 
     public static String getWeatherData(double lat, double lon) {
+        final String apiKey = "3233ac91292b4c006204060a119a223d";
+        final String endpointURL = "http://api.openweathermap.org/data/2.5/weather";
         List<String> commands = new ArrayList<>();
         commands.add("curl");
         commands.add("-s");
@@ -40,7 +43,7 @@ public class OpenWeather {
             throw new RuntimeException("Error: " + e.getMessage());
         }
     }
-    public static String GetDescription(String json) {
+    public static String getDescription(String json) {
         String pattern = "\"description\":\"([^\"]+)\"";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(json);
@@ -48,5 +51,26 @@ public class OpenWeather {
             return m.group(1);
         }
         return null;
+    }
+    public static void mapQuestApi(String[] firstLocation,String[] lastLocation,String folder){
+        String key = "tCLZumjMcxTSrHDpuiLdofmtvhTSgjxZ";
+        String url = "https://www.mapquestapi.com/staticmap/v5/map?key=" + key + "&locations=" + firstLocation[0] + "," + firstLocation[1] + "||" + lastLocation[0] + "," + lastLocation[1] + "&size=1100,500@2x";
+        String[] command = {
+                "curl",
+                "-o",
+                folder + "/MapQuest.jpg",
+                url
+        };
+        ProcessBuilder processBuilder = new ProcessBuilder(Arrays.asList(command));
+        processBuilder.inheritIO();
+        try {
+            Process process = processBuilder.start();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        FFMPEGCommands.photoToVideo(folder, FileManager.toMp4(folder));
+
+
     }
 }

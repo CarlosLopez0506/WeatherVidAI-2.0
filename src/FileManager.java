@@ -60,8 +60,8 @@ public class FileManager {
         }
 
     }
-    public static String changePath(Multimedia type){
-        String[] parts = type.getPath().split("/");
+    public static String toMp4(String path){
+        String[] parts = path.split("/");
         // Get the file name from the last part of the path
         String fileName = parts[parts.length - 1];
         // Set the folder name to add before the file name
@@ -74,7 +74,7 @@ public class FileManager {
 
         // Use a regular expression to replace the file name with the folder name and new file name
         pattern = Pattern.compile(fileName);
-        matcher = pattern.matcher(type.getPath());
+        matcher = pattern.matcher(path);
         return matcher.replaceFirst(folderName + "/" + newFileName);
     }
 

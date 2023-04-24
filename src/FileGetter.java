@@ -18,7 +18,7 @@ public class FileGetter {
                 while ((line = reader.readLine()) != null) {
                     MyUtils.MetaHandler(myFiles[fileCounter],line);
                     if (myFiles[fileCounter].location[0] != null && myFiles[fileCounter].location[1] != null){
-                        myFiles[fileCounter].setWeather(OpenWeather.GetDescription(OpenWeather.getWeatherData(Double.parseDouble(myFiles[fileCounter].location[0]), Double.parseDouble(myFiles[fileCounter].location[1]))));
+                        myFiles[fileCounter].setWeather(MyApi.getDescription(MyApi.getWeatherData(Double.parseDouble(myFiles[fileCounter].location[0]), Double.parseDouble(myFiles[fileCounter].location[1]))));
                     }
                 }
                 MyUtils.FileTypeDetector(myFiles[fileCounter]);
